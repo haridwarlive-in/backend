@@ -9,6 +9,7 @@ import templeRoutes from './routes/templeRoutes';
 import newsRoutes from './routes/newsRoutes';
 import queryRoutes from './routes/queryRoutes';
 import bookingRoutes from './routes/bookingRoutes';
+import awsRoutes from './routes/awsRoutes';
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.use('/api/temples', templeRoutes);
 app.use('/api/news', newsRoutes);
 app.use('/api/queries', queryRoutes);
 app.use('/api/bookings', bookingRoutes);
+app.use('/api/upload', awsRoutes);
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI as string)
