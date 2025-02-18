@@ -1,8 +1,5 @@
 import { Request, Response } from "express";
-const express = require('express');
 const AWS = require('aws-sdk');
-
-const router = express.Router();
 
 // Configure AWS SDK to use the instance's IAM role
 const s3 = new AWS.S3({
@@ -25,7 +22,7 @@ export const generatePresignedUrl = async (req: Request, res: Response) => {
   } catch (error) {
     console.error('Error generating pre-signed URL:', error);
     res.status(500).json({ error: 'Failed to generate pre-signed URL' });
-  }
+  } 
 };
 
-module.exports = router;
+

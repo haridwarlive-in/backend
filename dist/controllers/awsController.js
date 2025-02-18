@@ -1,9 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.generatePresignedUrl = void 0;
-const express = require('express');
 const AWS = require('aws-sdk');
-const router = express.Router();
 // Configure AWS SDK to use the instance's IAM role
 const s3 = new AWS.S3({
     region: process.env.AWS_REGION, // Ensure the region is set
@@ -26,4 +24,3 @@ const generatePresignedUrl = async (req, res) => {
     }
 };
 exports.generatePresignedUrl = generatePresignedUrl;
-module.exports = router;
