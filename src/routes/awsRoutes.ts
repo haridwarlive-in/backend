@@ -1,5 +1,5 @@
 import express from 'express';
-import { generatePresignedUrl } from '@/controllers/awsController';
+import { generatePresignedUrl } from '../controllers/awsController';
 import { protect, admin } from '../middleware/auth';
 
 const router = express.Router();
