@@ -15,10 +15,19 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors({
-  origin: "*",
-  credentials: true
-}));
+const allowedOrigins = ["https://www.haridwarlivein.in", "https://www.haridwarlivein.com", "https://dashboard.haridwarlivein.com"];
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // Routes

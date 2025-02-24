@@ -16,7 +16,11 @@ export const login = asyncHandler(async (req: Request, res: Response) => {
       { id: admin._id, email: admin.email, isAdmin: admin.isAdmin },
       process.env.JWT_SECRET as string,
     )
-    res.setHeader('Set-Cookie', `token=${token}; HttpOnly; Path=/; Max-Age=86400; sameSite=Lax`);
+    res.setHeader("Set-Cookie", [
+      `token=${token}; HttpOnly; Secure; Path=/; Max-Age=31536000; SameSite=None; Domain=.haridwarlivein.in`,
+      `token=${token}; HttpOnly; Secure; Path=/; Max-Age=31536000; SameSite=None; Domain=.haridwarlivein.com`,
+    ]);
+    
     res.json({
       token
     });
