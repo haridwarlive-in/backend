@@ -13,7 +13,7 @@ export const hotelSchema = z.object({
   address: z.string(),
   locationUrl: z.string().url(),
   amenities: z.array(z.string()),
-  image: z.string().url(),
+  key: z.string(),
   likes: z.number().default(0),
   roomsAvailable: z.number().default(0),
   contact: z.object({
@@ -28,7 +28,7 @@ export const templeSchema = z.object({
   description: z.string().min(10),
   location: z.string().optional(),
   locationUrl: z.string().url().optional(),
-  image: z.string().optional(),
+  key: z.string(),
   tags: z.array(z.string())
 });
 
@@ -43,13 +43,16 @@ export const newsSchema = z.object({
     return value; // Return the value as-is if not a string
   }, z.date()), // Validate as a Date object
   category: z.string(),
-  image: z.string().url().optional(),
-  tags: z.array(z.string())
+  key: z.string(),
+  tags: z.array(z.string()),
+  isBreakingNews: z.boolean(),
+  clicks: z.number().default(0).optional(),
 });
 
 export const querySchema = z.object({
   name: z.string().min(2),
   email: z.string().email().optional(),
+  phone: z.string(),
   subject: z.string().min(5),
   message: z.string().min(10),
 });

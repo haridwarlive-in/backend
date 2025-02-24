@@ -4,6 +4,6 @@ import { protect, admin } from '../middleware/auth';
 
 const router = express.Router();
 
-router.post('/upload', protect, admin, generatePresignedUrl);
+router.post('/generate-presigned-url', protect, admin, generatePresignedUrl);
 
 export default router;

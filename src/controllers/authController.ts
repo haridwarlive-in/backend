@@ -15,9 +15,8 @@ export const login = asyncHandler(async (req: Request, res: Response) => {
     const token = jwt.sign(
       { id: admin._id, email: admin.email, isAdmin: admin.isAdmin },
       process.env.JWT_SECRET as string,
-      { expiresIn: '30d' }
     )
-    res.setHeader('Set-Cookie', `token=${token}; HttpOnly; Path=/; Max-Age=86400; sameSite=None; Secure`);
+    res.setHeader('Set-Cookie', `token=${token}; HttpOnly; Path=/; Max-Age=86400; sameSite=Lax`);
     res.json({
       token
     });

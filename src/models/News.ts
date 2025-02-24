@@ -26,6 +26,10 @@ const newsSchema = new mongoose.Schema<News>({
     type: String,
     required: true
   },
+  key: {
+    type: String,
+    required: true
+  },
   tags: [{
     type: String,
     required: true
@@ -33,6 +37,10 @@ const newsSchema = new mongoose.Schema<News>({
   clicks: {
     type: Number,
     default: 0
+  },
+  isBreakingNews: {
+    type: Boolean,
+    default: false
   }
 }, { timestamps: true });
 

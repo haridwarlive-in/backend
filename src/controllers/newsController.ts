@@ -7,7 +7,7 @@ import { newsSchema } from '../schemas';
 export const getNews = asyncHandler(async (req: Request, res: Response) => {
   // Get the page and limit from query params, default to page 1 and limit 10 if not provided
   const page = parseInt(req.query.page as string) || 1;
-  const limit = parseInt(req.query.limit as string) || 11;
+  const limit = parseInt(req.query.limit as string) || 12;
 
   // Calculate the number of articles to skip based on the page number
   const skip = (page - 1) * limit;
@@ -16,7 +16,7 @@ export const getNews = asyncHandler(async (req: Request, res: Response) => {
   const totalNewsCount = await News.countDocuments();
 
   // Get the news with pagination and sorting by date
-  const news = await News.find({})
+  const news = await News.find({ status: "Published" })
     .sort({ date: -1 })
     .skip(skip)
     .limit(limit);
@@ -33,16 +33,35 @@ export const getNews = asyncHandler(async (req: Request, res: Response) => {
   });
 });
 
-export const getViralNews = asyncHandler(async (_req: Request, res: Response) => {
+export const getTrendingNews = asyncHandler(async (_req: Request, res: Response) => {
   // Get today's date and the date from 10 days ago
   const tenDaysAgo = moment().subtract(10, "days").toISOString();
 
   // Find news articles that were created within the last 10 days and sort by the number of clicks
   const news = await News.find({
+    status: "Published",
     date: { $gte: tenDaysAgo }, // Only articles from the last 10 days
   })
     .sort({ clicks: -1 })
-    .limit(4) // Sort by clicks in descending order (most clicked first)
+    .limit(5) // Sort by clicks in descending order (most clicked first)
+    .exec();
+
+  // Return the filtered and sorted news
+  res.json(news);
+});
+
+export const getBreakingNews = asyncHandler(async (_req: Request, res: Response) => {
+  // Get today's date and the date from 10 days ago
+  const tenDaysAgo = moment().subtract(10, "days").toISOString();
+
+  // Find news articles that were created within the last 10 days and check if they are breaking news
+  const news = await News.find({
+    status: "Published",
+    date: { $gte: tenDaysAgo }, // Only articles from the last 10 days
+    isBreakingNews: true, // Only articles that are breaking news
+  })
+    .sort({ date: -1 })
+    .limit(10)
     .exec();
 
   // Return the filtered and sorted news
@@ -58,6 +77,17 @@ export const getNewsById = asyncHandler(async (req: Request, res: Response) => {
   }
 });
 
+export const incrementNewsClick = asyncHandler(async (req: Request, res: Response) => {
+  const news = await News.findById(req.params.id);
+  if (news) {
+    news.clicks += 1;
+    await news.save();
+    res.json(news);
+  } else {
+    res.status(404).json({ message: 'News not found' });
+  }
+});
+
 export const getNewsByCategory = asyncHandler(async (req: Request, res: Response) => {
   const category = req.params.category; // Get the category from URL parameters
 
@@ -65,7 +95,7 @@ export const getNewsByCategory = asyncHandler(async (req: Request, res: Response
   const limit = 4;
 
   // Fetch news articles by category, limit to 4 and sort by date
-  const news = await News.find({ category })
+  const news = await News.find({ category, status: "Published" })
     .sort({ date: -1 })
     .limit(limit);
 
@@ -78,13 +108,16 @@ export const getNewsByCategory = asyncHandler(async (req: Request, res: Response
 
 export const createNews = asyncHandler(async (req: Request, res: Response) => {
   const newsData = newsSchema.parse(req.body);
-  const news = await News.create(newsData);
+  const url = `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${newsData.key}`
+  const news = await News.create({...newsData, image: url});
   res.status(201).json(news);
 });
 
 export const updateNews = asyncHandler(async (req: Request, res: Response) => {
   const newsData = newsSchema.parse(req.body);
-  const news = await News.findByIdAndUpdate(req.params.id, newsData, {
+  const url = `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${newsData.key}`
+
+  const news = await News.findByIdAndUpdate(req.params.id, {...newsData, image: url}, {
     new: true,
     runValidators: true
   });

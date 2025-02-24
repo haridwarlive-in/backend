@@ -16,7 +16,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-  origin: "http://localhost:3001",
+  origin: ["http://localhost:3001"],
   credentials: true
 }));
 app.use(express.json());
@@ -34,7 +34,6 @@ app.use('/api/upload', awsRoutes);
 mongoose.connect(process.env.MONGODB_URI as string)
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.error('MongoDB connection error:', err));
-
 
 const PORT = process.env.PORT || 5000;
 

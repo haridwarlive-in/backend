@@ -5,7 +5,7 @@ import Booking from '../models/Booking';
 import Hotel from '../models/Hotel';
 
 export const getBookings = asyncHandler(async (_req: Request, res: Response) => {
-  const bookings = await Booking.find({}).populate('hotelId');
+  const bookings = await Booking.find({}).populate('hotelId').sort({createdAt: -1});
   res.json(bookings);
 });
 
@@ -15,6 +15,16 @@ export const getBookingById = asyncHandler(async (req: Request, res: Response) =
     res.json(booking);
   } else {
     res.status(404).json({ message: 'Booking not found' });
+  }
+});
+
+export const getBookingsByHotelId = asyncHandler(async (req: Request, res: Response) => {
+  const {id} = req.params;
+  const bookings = await Booking.find({hotelId: id});
+  if (bookings) {
+    res.json(bookings);
+  } else {
+    res.status(404).json({ message: 'Bookings not found' });
   }
 });
 

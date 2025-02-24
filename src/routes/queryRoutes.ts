@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.route('/')
   .get(getQueries)
-  .post(protect, admin, createQuery);
+  .post(createQuery);
 
 router.route('/:id/status')
   .put(protect, admin, updateQueryStatus);

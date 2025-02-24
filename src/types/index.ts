@@ -18,6 +18,7 @@ export interface Hotel {
   locationUrl: string;
   amenities: string[];
   image: string;
+  key: string;
   likes: number;
   roomsAvailable: number;
   contact: {
@@ -34,6 +35,7 @@ export interface Temple {
   location: string;
   locationUrl: string;
   image: string;
+  key?: string;
   tags?: string[] 
 }
 
@@ -44,8 +46,10 @@ export interface News {
   status: 'Archived'|'Published';
   category: Category;
   image?: string;
+  key?: string;
   tags: string[];
   clicks: number;
+  isBreakingNews: boolean;
 }
 
 export interface Query {

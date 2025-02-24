@@ -41,6 +41,11 @@ const hotelSchema = new mongoose.Schema<Hotel>({
   image: {
     type: String
   },
+  key: {
+    type: String,
+    required: true,
+    unique: true
+  },
   contact: {
     phone: {
       type: String,

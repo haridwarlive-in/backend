@@ -17,6 +17,10 @@ const templeSchema = new mongoose.Schema<Temple>({
   locationUrl: {
     type: String,
     required: true
+  },  
+  key: {
+    type: String,
+    required: true
   },
   image: {
     type: String,
