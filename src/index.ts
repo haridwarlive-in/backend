@@ -10,6 +10,7 @@ import newsRoutes from './routes/newsRoutes';
 import queryRoutes from './routes/queryRoutes';
 import bookingRoutes from './routes/bookingRoutes';
 import awsRoutes from './routes/awsRoutes';
+import { Admin } from './models/Admin';
 
 dotenv.config();
 
@@ -28,6 +29,7 @@ app.use(
     credentials: true,
   })
 );
+
 app.use(express.json());
 
 // Routes

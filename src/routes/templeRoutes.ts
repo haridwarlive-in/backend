@@ -12,11 +12,11 @@ const router = express.Router();
 
 router.route('/')
   .get(getTemples)
-  .post(protect, admin, createTemple);
+  .post(protect, createTemple);
 
 router.route('/:id')
   .get(getTempleById)
-  .put(protect, admin, updateTemple)
-  .delete(protect, admin, deleteTemple);
+  .put(protect, updateTemple)
+  .delete(protect, deleteTemple);
 
 export default router;

@@ -13,6 +13,6 @@ router.route('/')
   .post(createQuery);
 
 router.route('/:id/status')
-  .put(protect, admin, updateQueryStatus);
+  .put(protect, updateQueryStatus);
 
 export default router;

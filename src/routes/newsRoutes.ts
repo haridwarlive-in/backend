@@ -16,7 +16,7 @@ const router = express.Router();
 
 router.route('/')
   .get(getNews)
-  .post(protect, admin, createNews);
+  .post(protect, createNews);
 
 router.get('/breaking-news', getBreakingNews);
 router.get('/trending-news', getTrendingNews)
@@ -27,7 +27,7 @@ router.put('/:id/click', incrementNewsClick);
 
 router.route('/:id')
   .get(getNewsById)
-  .put(protect, admin, updateNews)
-  .delete(protect, admin, deleteNews);
+  .put(protect, updateNews)
+  .delete(protect, deleteNews);
 
 export default router;

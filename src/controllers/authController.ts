@@ -22,9 +22,18 @@ export const login = asyncHandler(async (req: Request, res: Response) => {
     ]);
     
     res.json({
-      token
+      token,
     });
   } else {
     res.status(401).json({ message: 'Invalid email or password' });
   }
+});
+
+export const logout = asyncHandler(async (req: Request, res: Response) => {
+  res.setHeader("Set-Cookie", [
+    "token=; HttpOnly; Secure; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=None; Domain=.haridwarlivein.in",
+    "token=; HttpOnly; Secure; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=None; Domain=.haridwarlivein.com",
+  ]);
+
+  res.status(200).json({ message: "Logged out successfully" });
 });
