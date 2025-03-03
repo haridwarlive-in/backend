@@ -20,7 +20,7 @@ export const login = asyncHandler(async (req: Request, res: Response) => {
       `token=${token}; HttpOnly; Secure; Path=/; Max-Age=31536000; SameSite=None; Domain=.haridwarlivein.in`,
       `token=${token}; HttpOnly; Secure; Path=/; Max-Age=31536000; SameSite=None; Domain=.haridwarlivein.com`,
     ]);
-    
+
     res.json({
       token,
     });

@@ -50,6 +50,8 @@ export interface News {
   tags: string[];
   clicks: number;
   isBreakingNews: boolean;
+  author?: string;
+  urlTitle: string
 }
 
 export interface Query {

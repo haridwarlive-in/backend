@@ -47,6 +47,8 @@ export const newsSchema = z.object({
   tags: z.array(z.string()),
   isBreakingNews: z.boolean(),
   clicks: z.number().default(0).optional(),
+  author: z.string().optional(),
+  urlTitle: z.string()
 });
 
 export const querySchema = z.object({

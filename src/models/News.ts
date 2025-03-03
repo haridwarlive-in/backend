@@ -41,6 +41,13 @@ const newsSchema = new mongoose.Schema<News>({
   isBreakingNews: {
     type: Boolean,
     default: false
+  },
+  author: {
+    type: String
+  },
+  urlTitle: {
+    type: String,
+    required: true
   }
 }, { timestamps: true });
 
