@@ -51,7 +51,8 @@ export interface News {
   clicks: number;
   isBreakingNews: boolean;
   author?: string;
-  urlTitle: string
+  urlTitle: string;
+  videoUrl: string;
 }
 
 export interface Query {

@@ -8,7 +8,8 @@ import {
   getBreakingNews,
   getNewsByCategory,
   incrementNewsClick,
-  getTrendingNews
+  getTrendingNews,
+  getNewsByTitle
 } from '../controllers/newsController';
 import { protect, admin } from '../middleware/auth';
 
@@ -22,7 +23,7 @@ router.get('/breaking-news', getBreakingNews);
 router.get('/trending-news', getTrendingNews)
 
 router.get('/category/:category', getNewsByCategory);
-
+router.get('/title/:title', getNewsByTitle)
 router.put('/:id/click', incrementNewsClick);
 
 router.route('/:id')

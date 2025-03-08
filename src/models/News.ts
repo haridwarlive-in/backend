@@ -48,6 +48,9 @@ const newsSchema = new mongoose.Schema<News>({
   urlTitle: {
     type: String,
     required: true
+  },
+  videoUrl: {
+    type: String
   }
 }, { timestamps: true });
 

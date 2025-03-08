@@ -16,7 +16,7 @@ dotenv.config();
 
 const app = express();
 
-const allowedOrigins = ["https://www.haridwarlivein.in", "https://www.haridwarlivein.com", "https://dashboard.haridwarlivein.com"];
+const allowedOrigins = ["http://localhost:3000", "http://localhost:3001", "https://www.haridwarlivein.in", "https://www.haridwarlivein.com", "https://dashboard.haridwarlivein.com"];
 app.use(
   cors({
     origin: function (origin, callback) {
@@ -29,6 +29,8 @@ app.use(
     credentials: true,
   })
 );
+
+
 app.use(express.json());
 
 // Routes

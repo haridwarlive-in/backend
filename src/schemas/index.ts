@@ -48,7 +48,8 @@ export const newsSchema = z.object({
   isBreakingNews: z.boolean(),
   clicks: z.number().default(0).optional(),
   author: z.string().optional(),
-  urlTitle: z.string()
+  urlTitle: z.string(),
+  videoUrl: z.string().optional()
 });
 
 export const querySchema = z.object({

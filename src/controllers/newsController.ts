@@ -77,6 +77,15 @@ export const getNewsById = asyncHandler(async (req: Request, res: Response) => {
   }
 });
 
+export const getNewsByTitle = asyncHandler(async (req: Request, res: Response) => {
+  const news = await News.find({urlTitle: req.params.title});
+  if (news) {
+    res.json(news);
+  } else {
+    res.status(404).json({ message: 'News not found' });
+  }
+});
+
 export const incrementNewsClick = asyncHandler(async (req: Request, res: Response) => {
   const news = await News.findById(req.params.id);
   if (news) {
