@@ -16,13 +16,9 @@ export const login = asyncHandler(async (req: Request, res: Response) => {
       { id: admin._id, email: admin.email, isAdmin: admin.isAdmin },
       process.env.JWT_SECRET as string,
     )
-    // res.setHeader("Set-Cookie", [
-    //   `token=${token}; HttpOnly; Secure; Path=/; Max-Age=31536000; SameSite=None; Domain=.haridwarlivein.in`,
-    //   `token=${token}; HttpOnly; Secure; Path=/; Max-Age=31536000; SameSite=None; Domain=.haridwarlivein.com`,
-    // ]);
-
     res.setHeader("Set-Cookie", [
-      `token=${token}; HttpOnly; Secure; Path=/; Max-Age=31536000; SameSite=Lax;`,
+      `token=${token}; HttpOnly; Secure; Path=/; Max-Age=31536000; SameSite=None; Domain=.haridwarlivein.in`,
+      `token=${token}; HttpOnly; Secure; Path=/; Max-Age=31536000; SameSite=None; Domain=.haridwarlivein.com`,
     ]);
 
     res.json({
@@ -34,12 +30,9 @@ export const login = asyncHandler(async (req: Request, res: Response) => {
 });
 
 export const logout = asyncHandler(async (req: Request, res: Response) => {
-  // res.setHeader("Set-Cookie", [
-  //   "token=; HttpOnly; Secure; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=None; Domain=.haridwarlivein.in",
-  //   "token=; HttpOnly; Secure; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=None; Domain=.haridwarlivein.com",
-  // ]);
   res.setHeader("Set-Cookie", [
-    "token=; HttpOnly; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax;",
+    "token=; HttpOnly; Secure; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=None; Domain=.haridwarlivein.in",
+    "token=; HttpOnly; Secure; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=None; Domain=.haridwarlivein.com",
   ]);
 
   res.status(200).json({ message: "Logged out successfully" });
