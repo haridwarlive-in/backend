@@ -78,7 +78,7 @@ export const getNewsById = asyncHandler(async (req: Request, res: Response) => {
 });
 
 export const getNewsByTitle = asyncHandler(async (req: Request, res: Response) => {
-  const decodedTitle = decodeURIComponent(req.body.urlTitle as string);
+  const decodedTitle = decodeURIComponent(req.params.title as string);
   const news = await News.find({urlTitle: decodedTitle});
   if (news) {
     res.json(news);
