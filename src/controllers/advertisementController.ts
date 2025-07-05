@@ -36,7 +36,7 @@ export const addAdvertisement = async (req: Request, res: Response) => {
     console.log(req.body)
     const url = `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${advertisementData.key}`
 
-    const advertisement = await Advertisement.create({advertisementData, image: url});
+    const advertisement = await Advertisement.create({...advertisementData, image: url});
     res.status(200).json(advertisement);
   } catch (e) {
     res.status(500).json({ message: "Server error occured" });
