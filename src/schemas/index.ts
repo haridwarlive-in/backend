@@ -74,7 +74,10 @@ export const advertisementSchema = z.object({
   title: z.string(),
   url: z.string().url(),
   key: z.string(),
-  expiry: z.date(),
+  expiry: z.preprocess(
+    (val) => (typeof val === "string" ? new Date(val) : val),
+    z.date()
+  ),
   status: z.string(),
   duration: z.number(),
 });
