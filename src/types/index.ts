@@ -74,6 +74,16 @@ export interface Booking {
   status: 'CONFIRMED'|'PENDING'|'CANCELLED'
 }
 
+export interface Advertisement {
+  title: string,
+  status: 'Archived'|'Published';
+  image: string,
+  url: string,
+  key: string,
+  expiry: Date,
+  duration: number
+}
+
 type Category =
   | "Local News"
   | "Events"

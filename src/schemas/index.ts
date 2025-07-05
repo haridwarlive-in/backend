@@ -69,3 +69,13 @@ export const bookingSchema = z.object({
   date: z.string(),
   totalDays: z.string(),
 });
+
+export const advertisementSchema = z.object({
+  title: z.string(),
+  url: z.string().url(),
+  image: z.string().min(5),
+  key: z.string(),
+  expiry: z.date(),
+  status: z.string(),
+});
+

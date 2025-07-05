@@ -10,7 +10,7 @@ import newsRoutes from './routes/newsRoutes';
 import queryRoutes from './routes/queryRoutes';
 import bookingRoutes from './routes/bookingRoutes';
 import awsRoutes from './routes/awsRoutes';
-import { Admin } from './models/Admin';
+import advertisementRoutes from './routes/advertisementRoutes';
 
 dotenv.config();
 
@@ -41,14 +41,22 @@ app.use('/api/news', newsRoutes);
 app.use('/api/queries', queryRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/upload', awsRoutes);
+app.use('/api/advertisements', advertisementRoutes);
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI as string)
-  .then(() => console.log('MongoDB Connected'))
-  .catch(err => console.error('MongoDB connection error:', err));
+async function startServer() {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI as string);
+    console.log('MongoDB Connected');
 
-const PORT = process.env.PORT || 5000;
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  } catch (err) {
+    console.error('MongoDB connection error:', err);
+    process.exit(1);
+  }
+}
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+startServer();
