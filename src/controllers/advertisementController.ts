@@ -51,7 +51,7 @@ export const updateAdvertisement = async (req: Request, res: Response) => {
 
     const advertisement = await Advertisement.findByIdAndUpdate(
       req.params.id,
-      {advertisementData, image: url},
+      {...advertisementData, image: url},
       {
         new: true,
         runValidators: true,
