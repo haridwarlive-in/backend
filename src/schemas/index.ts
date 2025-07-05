@@ -73,7 +73,7 @@ export const bookingSchema = z.object({
 export const advertisementSchema = z.object({
   title: z.string(),
   url: z.string().url(),
-  image: z.string().min(5),
+  image: z.string().url().min(5),
   key: z.string(),
   expiry: z.date(),
   status: z.string(),

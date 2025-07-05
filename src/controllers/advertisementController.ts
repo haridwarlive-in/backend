@@ -33,7 +33,9 @@ export const getAdvertisementById = async (req: Request, res: Response) => {
 export const addAdvertisement = async (req: Request, res: Response) => {
   try {
     const advertisementData = advertisementSchema.parse(req.body);
-    const advertisement = await Advertisement.create(advertisementData);
+    const url = `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${advertisementData.key}`
+
+    const advertisement = await Advertisement.create({advertisementData, image: url});
     res.status(200).json(advertisement);
   } catch (e) {
     res.status(500).json({ message: "Server error occured" });
@@ -43,9 +45,11 @@ export const addAdvertisement = async (req: Request, res: Response) => {
 export const updateAdvertisement = async (req: Request, res: Response) => {
   try {
     const advertisementData = advertisementSchema.parse(req.body);
+    const url = `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${advertisementData.key}`
+
     const advertisement = await Advertisement.findByIdAndUpdate(
       req.params.id,
-      advertisementData,
+      {advertisementData, image: url},
       {
         new: true,
         runValidators: true,
