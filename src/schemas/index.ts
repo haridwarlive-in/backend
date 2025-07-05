@@ -77,5 +77,6 @@ export const advertisementSchema = z.object({
   key: z.string(),
   expiry: z.date(),
   status: z.string(),
+  duration: z.number(),
 });
 
