@@ -39,6 +39,7 @@ export const addAdvertisement = async (req: Request, res: Response) => {
     res.status(200).json(advertisement);
   } catch (e) {
     res.status(500).json({ message: "Server error occured" });
+    console.log(e)
   }
 };
 
