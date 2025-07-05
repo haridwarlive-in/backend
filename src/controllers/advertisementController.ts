@@ -33,6 +33,7 @@ export const getAdvertisementById = async (req: Request, res: Response) => {
 export const addAdvertisement = async (req: Request, res: Response) => {
   try {
     const advertisementData = advertisementSchema.parse(req.body);
+    console.log(req.body)
     const url = `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${advertisementData.key}`
 
     const advertisement = await Advertisement.create({advertisementData, image: url});
